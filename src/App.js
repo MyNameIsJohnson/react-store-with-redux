@@ -5,7 +5,8 @@ import Cart from "./components/Cart/Cart";
 import Layout from "./components/Layout/Layout";
 import Products from "./components/Shop/Products";
 import Notification from "./components/UI/Notification";
-// import { uiActions } from "./store/ui-slice";
+
+import { fetchProductData } from "./store/product-actions";
 import { fetchCartData, sendCartData } from "./store/cart-actions";
 let isInitial = true;
 
@@ -63,6 +64,11 @@ function App() {
   //   );
   // });
   // 2. Inside the action creators (e.g. sendCartData from store/cart-slice)
+
+  useEffect(() => {
+    dispatch(fetchProductData());
+  }, [dispatch]);
+
   useEffect(() => {
     dispatch(fetchCartData());
   }, [dispatch]);
@@ -77,7 +83,6 @@ function App() {
     if (cart.changed) {
       dispatch(sendCartData(cart));
     }
-    dispatch(sendCartData(cart));
   }, [cart, dispatch]);
 
   return (
