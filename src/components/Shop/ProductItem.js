@@ -6,11 +6,10 @@ import classes from "./ProductItem.module.css";
 
 const ProductItem = (props) => {
   const dispatch = useDispatch();
-  const { title, price, description, id } = props;
+  const { images, title, price, description, id } = props;
   const addToCartHandler = () => {
     dispatch(cartActions.addItemToCart({ id, title, price }));
   };
-
   return (
     <li className={classes.item}>
       <Card>
@@ -19,6 +18,11 @@ const ProductItem = (props) => {
           <div className={classes.price}>${price.toFixed(2)}</div>
         </header>
         <p>{description}</p>
+        <div className="product-images">
+          {images.map((image) => (
+            <img key={image} alt={title} src={image} height="200" width="200" />
+          ))}
+        </div>
         <div className={classes.actions}>
           <button onClick={addToCartHandler}>Add to Cart</button>
         </div>

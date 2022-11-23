@@ -2,21 +2,6 @@ import ProductItem from "./ProductItem";
 import classes from "./Products.module.css";
 import { useSelector } from "react-redux";
 
-const DUMMY_PRODUCTS = [
-  {
-    id: "p1",
-    price: 6,
-    title: "My first Book",
-    description: "The Adventure",
-  },
-  {
-    id: "p2",
-    price: 6,
-    title: "My Second Book",
-    description: "The Adventure Continues",
-  },
-];
-
 const Products = (props) => {
   const productItems = useSelector((state) => state.product.products);
   return (
@@ -30,6 +15,7 @@ const Products = (props) => {
             title={product.title}
             price={product.price}
             description={product.description}
+            images={product.images}
           />
         ))}
       </ul>
