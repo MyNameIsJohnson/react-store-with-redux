@@ -22,7 +22,12 @@ const ProductItem = (props) => {
         </header>
         <p>{description}</p>
         <div className={classes.carousel}>
-          <div className={classes.carouselInner}>
+          <div
+            className={classes.carouselInner}
+            style={{
+              backgroundImage: `url(${images[currImg]})`,
+            }}
+          >
             <div
               className={classes.left}
               onClick={() => {
@@ -31,15 +36,7 @@ const ProductItem = (props) => {
             >
               <ArrowBackIosIcon style={{ fontSize: 30 }} />
             </div>
-            <div className={classes.center}>
-              <img
-                key={images[currImg]}
-                alt={title}
-                src={images[currImg]}
-                height="200"
-                width="200"
-              />
-            </div>
+            <div className={classes.center}></div>
             <div
               className={classes.right}
               onClick={() => {
