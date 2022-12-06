@@ -35,12 +35,12 @@ const Checkout = () => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
 
-  const description = `eShop payment: email: ${customerEmail}, Amount: ${totalAmount}`;
+  const description = `ChecksOut payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
   useEffect(() => {
     // http://localhost:4242/create-payment-intent
     // Create PaymentIntent as soon as the page loads
-    fetch("https://eshop-react-firebase.herokuapp.com/create-payment-intent", {
+    fetch("http://localhost:4242/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
