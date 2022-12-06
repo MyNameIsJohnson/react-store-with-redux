@@ -2,14 +2,15 @@ import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { cartActions } from "../../store/cart-slice";
-import Card from "../UI/Card";
+import { cartActions } from "../../redux/slices/cart-slice";
+import Card from "../ui/Card";
 import classes from "./ProductItem.module.css";
 
 const ProductItem = (props) => {
   const [currImg, setCurrImg] = useState(0);
   const dispatch = useDispatch();
   const { images, title, price, description, id } = props;
+  console.log();
   const addToCartHandler = () => {
     dispatch(cartActions.addItemToCart({ id, title, price }));
   };

@@ -33,22 +33,6 @@
   text-align-last: center;
 }
 
-h1 {
-  font-size: 5rem;
-}
-
-p {
-  /* font-size: 2rem; */
-}
-
-h1,
-p {
-  background-color: rgb(255, 255, 255, 0.8);
-  font-size: 10px;
-  height: 30px;
-  overflow: auto;
-}
-
 .carouselInner .right {
   flex: 5%;
   height: 100%;
@@ -57,4 +41,22 @@ p {
   place-items: center;
   color: white;
   cursor: pointer;
+}
+
+h1 {
+  font-size: 5rem;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 10px;
+  height: 30px;
+  overflow: auto;
+}
+
+header {
+  height: 100px;
 }

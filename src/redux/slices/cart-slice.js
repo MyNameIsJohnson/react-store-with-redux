@@ -1,4 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
+
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
@@ -16,6 +18,7 @@ const cartSlice = createSlice({
 
     addItemToCart(state, action) {
       const newItem = action.payload;
+
       const existingItem = state.items.find((item) => item.id === newItem.id);
       state.totalQuantity++;
       state.changed = true;
@@ -27,9 +30,15 @@ const cartSlice = createSlice({
           totalPrice: newItem.price,
           title: newItem.title,
         });
+        toast.info(`${action.payload.title} increased by one`, {
+          position: "top-left",
+        });
       } else {
         existingItem.quantity++;
         existingItem.totalPrice = existingItem.totalPrice + newItem.price;
+        toast.info(`${action.payload.title} increased by one`, {
+          position: "top-left",
+        });
       }
     },
     removeItemFromCart(state, action) {
@@ -44,9 +53,24 @@ const cartSlice = createSlice({
         existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
       }
     },
+    CALCULATE_TOTAL_QUANTITY(state, action) {
+      const array = [];
+      state.items.map((item) => {
+        const { cartQuantity } = item;
+        const quantity = cartQuantity;
+        return array.push(quantity);
+      });
+      const totalQuantity = array.reduce((a, b) => {
+        return a + b;
+      }, 0);
+      state.cartTotalQuantity = totalQuantity;
+    },
   },
 });
 
 export const cartActions = cartSlice.actions;
+
+export const selectCartTotalQuantity = (state) => state.cart.totalQuantity;
+export const selectPreviousURL = (state) => state.cart.previousURL;
 
 export default cartSlice;
