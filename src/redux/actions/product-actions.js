@@ -1,5 +1,5 @@
-import { uiActions } from "./ui-slice";
-import { productActions } from "./product-slice";
+import { uiActions } from "../slices/ui-slice";
+import { productActions } from "../slices/product-slice";
 export const fetchProductData = () => {
   return async (dispatch) => {
     const fetchData = async () => {

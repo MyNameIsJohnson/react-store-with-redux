@@ -7,8 +7,6 @@ const productSlice = createSlice({
     changed: false,
   },
   reducers: {
-    // create reducers: to replaceCart, addItemToCart and removeItemFromCart that take 2 params: state, action.
-    // replaceCart should set state totalQuantity to action payload totalQuantity and set state items to action payload items
     replaceCart(state, action) {
       state.totalQuantity = action.payload.totalQuantity;
       state.products = action.payload.products;
