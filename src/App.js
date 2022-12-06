@@ -63,6 +63,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/reset" element={<Reset />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </Layout>
         <Footer />
