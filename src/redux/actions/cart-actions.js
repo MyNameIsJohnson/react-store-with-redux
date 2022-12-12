@@ -1,5 +1,6 @@
-import { uiActions } from "../slices/ui-slice";
-import { cartActions } from "../slices/cart-slice";
+import { toast } from "react-toastify";
+
+import { cartActions } from "../slice/cart-slice";
 export const fetchCartData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
@@ -21,26 +22,16 @@ export const fetchCartData = () => {
           totalQuantity: cartData.totalQuantity,
         })
       );
+      toast.success(`${cartActions.payload.name} added to cart`, {
+        position: "top-left",
+      });
     } catch (error) {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Sending cart data failed",
-        })
-      );
+      console.log(error);
     }
   };
 };
 export const sendCartData = (cart) => {
   return async (dispatch) => {
-    dispatch(
-      uiActions.showNotification({
-        status: "pending",
-        title: "Sending...",
-        message: "Sending cart data",
-      })
-    );
     const sendRequest = async () => {
       const response = await fetch(
         "https://react-redux-store-project-default-rtdb.firebaseio.com/cart.json",
@@ -59,21 +50,13 @@ export const sendCartData = (cart) => {
 
     try {
       await sendRequest();
-      dispatch(
-        uiActions.showNotification({
-          status: "success",
-          title: "Success!",
-          message: "Sending cart data successfully",
-        })
-      );
+      toast.info(`${cartActions.payload.name} sent`, {
+        position: "top-left",
+      });
     } catch (error) {
-      dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Error!",
-          message: "Sending cart data failed",
-        })
-      );
+      toast.info(`${cartActions.payload.name} error`, {
+        position: "top-left",
+      });
     }
   };
 };

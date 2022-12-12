@@ -3,7 +3,7 @@ import styles from "./auth.module.scss";
 import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
-import Card from "../../components/ui/Card";
+import Card from "../../components/card/Card";
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -13,7 +13,7 @@ import { auth } from "../../firebase/config";
 import { toast } from "react-toastify";
 import Loader from "../../components/loader/Loader";
 import { useSelector } from "react-redux";
-import { selectPreviousURL } from "../../redux/slices/cart-slice";
+import { selectPreviousURL } from "../../redux/slice/cartSlice";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -54,7 +54,7 @@ const Login = () => {
       .then((result) => {
         // const user = result.user;
         toast.success("Login Successfully");
-        // redirectUser();
+        redirectUser();
       })
       .catch((error) => {
         toast.error(error.message);
@@ -63,7 +63,7 @@ const Login = () => {
 
   return (
     <>
-      {isLoading}
+      {isLoading && <Loader />}
       <section className={`container ${styles.auth}`}>
         <div className={styles.img}>
           <img src={loginImg} alt="Login" width="400" />
