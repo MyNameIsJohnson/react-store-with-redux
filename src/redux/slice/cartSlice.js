@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectUserName } from "../slice/authSlice";
 
 const initialState = {
+  user: localStorage.getItem("userName"),
+
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
@@ -14,37 +14,40 @@ const initialState = {
 
 const cartSlice = createSlice({
   name: "cart",
-  user: "user",
   initialState,
   reducers: {
+    replaceCart(state, action) {
+      state.cartTotalQuantity = action.payload.cartTotalQuantity;
+      state.cartItems = action.payload.cartItems;
+    },
     ADD_TO_CART(state, action) {
-      console.log(state.user);
+      const newItem = action.payload;
 
-      // const userName = state.auth.user;
-      // console.log(userName);
-
-      const productIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+      const existingItem = state.cartItems.find(
+        (item) => item.id === newItem.id
       );
-
-      if (productIndex >= 0) {
-        // Item already exists in the cart
-        // Increase the cartQuantity
-        state.cartItems[productIndex].cartQuantity += 1;
-        toast.info(`${action.payload.title} increased by one`, {
+      state.cartTotalQuantity++;
+      state.changed = true;
+      if (!existingItem) {
+        state.cartItems.push({
+          id: newItem.id,
+          price: newItem.price,
+          cartQuantity: 1,
+          cartTotalAmount: newItem.price,
+          title: newItem.title,
+          images: newItem.images,
+        });
+        toast.info(`${action.payload.title} Added to cart`, {
           position: "top-left",
         });
       } else {
-        // Item doesn't exists in the cart
-        // Add item to the cart
-        const tempProduct = { ...action.payload, cartQuantity: 1 };
-        state.cartItems.push(tempProduct);
-        toast.success(`${action.payload.title} added to cart`, {
+        existingItem.cartQuantity++;
+        existingItem.cartTotalAmount =
+          existingItem.cartTotalAmount + newItem.price;
+        toast.info(`${action.payload.title} Removed from cart`, {
           position: "top-left",
         });
       }
-      // save cart to LS
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     DECREASE_CART(state, action) {
       console.log(action.payload);
@@ -69,16 +72,19 @@ const cartSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
     REMOVE_FROM_CART(state, action) {
-      const newCartItem = state.cartItems.filter(
-        (item) => item.id !== action.payload.id
-      );
-
-      state.cartItems = newCartItem;
-      toast.success(`${action.payload.title} removed from cart`, {
-        position: "top-left",
-      });
-
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      const id = action.payload.id;
+      console.log(id);
+      const existingItem = state.cartItems.find((item) => item.id === id);
+      console.log(existingItem);
+      state.cartTotalQuantity--;
+      state.changed = true;
+      if (existingItem.cartQuantity === 1) {
+        state.cartItems = state.cartItems.filter((item) => item.id !== id);
+      } else {
+        existingItem.cartQuantity--;
+        existingItem.cartTotalAmount =
+          existingItem.cartTotalAmount - existingItem.price;
+      }
     },
     CLEAR_CART(state, action) {
       state.cartItems = [];
@@ -133,5 +139,6 @@ export const selectCartItems = (state) => state.cart.cartItems;
 export const selectCartTotalQuantity = (state) => state.cart.cartTotalQuantity;
 export const selectCartTotalAmount = (state) => state.cart.cartTotalAmount;
 export const selectPreviousURL = (state) => state.cart.previousURL;
+export const cartActions = cartSlice.actions;
 
 export default cartSlice.reducer;

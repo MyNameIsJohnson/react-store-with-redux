@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-import { cartActions } from "../slice/cart-slice";
+import { cartActions } from "../slice/cartSlice";
 export const fetchCartData = () => {
   return async (dispatch) => {
     const fetchData = async () => {
@@ -18,11 +18,11 @@ export const fetchCartData = () => {
       const cartData = await fetchData();
       dispatch(
         cartActions.replaceCart({
-          items: cartData.items || [],
-          totalQuantity: cartData.totalQuantity,
+          cartItems: cartData.cartItems || [],
+          cartTotalQuantity: cartData.cartTotalQuantity,
         })
       );
-      toast.success(`${cartActions.payload.name} added to cart`, {
+      toast.success(`You have items in your cart`, {
         position: "top-left",
       });
     } catch (error) {
@@ -38,8 +38,8 @@ export const sendCartData = (cart) => {
         {
           method: "PUT",
           body: JSON.stringify({
-            items: cart.items,
-            totalQuantity: cart.totalQuantity,
+            cartItems: cart.cartItems,
+            cartTotalQuantity: cart.cartTotalQuantity,
           }),
         }
       );
@@ -50,11 +50,11 @@ export const sendCartData = (cart) => {
 
     try {
       await sendRequest();
-      toast.info(`${cartActions.payload.name} sent`, {
+      toast.info(`Cart has items`, {
         position: "top-left",
       });
     } catch (error) {
-      toast.info(`${cartActions.payload.name} error`, {
+      toast.info(error.message, {
         position: "top-left",
       });
     }

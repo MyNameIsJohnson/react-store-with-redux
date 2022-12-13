@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { fetchCartData, sendCartData } from "../../redux/actions/cart-actions";
 import {
   ADD_TO_CART,
   CALCULATE_SUBTOTAL,
