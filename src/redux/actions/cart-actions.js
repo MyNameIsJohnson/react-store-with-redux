@@ -22,9 +22,9 @@ export const fetchCartData = () => {
           cartTotalQuantity: cartData.cartTotalQuantity,
         })
       );
-      toast.success(`You have items in your cart`, {
-        position: "top-left",
-      });
+      // toast.success(`You have items in your cart`, {
+      //   position: "top-left",
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -50,9 +50,9 @@ export const sendCartData = (cart) => {
 
     try {
       await sendRequest();
-      toast.info(`Cart has items`, {
-        position: "top-left",
-      });
+      // toast.info(`Cart has items`, {
+      //   position: "top-left",
+      // });
     } catch (error) {
       toast.info(error.message, {
         position: "top-left",
