@@ -2,8 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 const initialState = {
-  user: localStorage.getItem("userName"),
-
   cartItems: localStorage.getItem("cartItems")
     ? JSON.parse(localStorage.getItem("cartItems"))
     : [],
@@ -16,13 +14,13 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    replaceCart(state, action) {
+    REPLACE_CART(state, action) {
       state.cartTotalQuantity = action.payload.cartTotalQuantity;
       state.cartItems = action.payload.cartItems;
     },
     ADD_TO_CART(state, action) {
       const newItem = action.payload;
-
+      console.log(state);
       const existingItem = state.cartItems.find(
         (item) => item.id === newItem.id
       );
