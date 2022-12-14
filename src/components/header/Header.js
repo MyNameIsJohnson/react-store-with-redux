@@ -16,6 +16,7 @@ import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
 import {
   CALCULATE_TOTAL_QUANTITY,
+  CLEAR_CART,
   selectCartTotalQuantity,
 } from "../../redux/slice/cartSlice";
 
@@ -23,7 +24,7 @@ const logo = (
   <div className={styles.logo}>
     <Link to="/">
       <h2>
-        e<span>Shop</span>.
+        Checks<span>Out</span>.
       </h2>
     </Link>
   </div>
@@ -92,6 +93,7 @@ const Header = () => {
   const logoutUser = () => {
     signOut(auth)
       .then(() => {
+        CLEAR_CART();
         toast.success("Logout successfully.");
         navigate("/");
       })
