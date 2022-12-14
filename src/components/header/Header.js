@@ -8,24 +8,22 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { uiActions } from "../../redux/slices/ui-slice";
-
 import {
   REMOVE_ACTIVE_USER,
   SET_ACTIVE_USER,
-} from "../../redux/slices/auth-slice";
+} from "../../redux/slice/authSlice";
 import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
 import {
   CALCULATE_TOTAL_QUANTITY,
   selectCartTotalQuantity,
-} from "../../redux/slices/cart-slice";
+} from "../../redux/slice/cartSlice";
 
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
       <h2>
-        Checks<span>Out</span>.
+        e<span>Shop</span>.
       </h2>
     </Link>
   </div>
@@ -38,15 +36,14 @@ const Header = () => {
   const [displayName, setdisplayName] = useState("");
   const [scrollPage, setScrollPage] = useState(false);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
-  const cartQuantity = useSelector(selectCartTotalQuantity);
-  console.log(cartQuantity);
 
-  const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(CALCULATE_TOTAL_QUANTITY());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  }, []);
 
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const fixNavbar = () => {
     if (window.scrollY > 50) {
@@ -103,16 +100,12 @@ const Header = () => {
       });
   };
 
-  const toggleCartHandler = () => {
-    dispatch(uiActions.toggle());
-  };
-
   const cart = (
     <span className={styles.cart}>
-      <Link to="/cart" onClick={toggleCartHandler}>
+      <Link to="/cart">
         Cart
         <FaShoppingCart size={20} />
-        <p>{cartQuantity}</p>
+        <p>{cartTotalQuantity}</p>
       </Link>
     </span>
   );
