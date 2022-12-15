@@ -17,6 +17,9 @@ import useFetchCollection from "../../../customHooks/useFetchCollection";
 import Card from "../../card/Card";
 import StarsRating from "react-star-rate";
 
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -44,7 +47,7 @@ const ProductDetails = () => {
     dispatch(DECREASE_CART(product));
     dispatch(CALCULATE_TOTAL_QUANTITY());
   };
-
+  const [currImg, setCurrImg] = useState(0);
   return (
     <section>
       <div className={`container ${styles.product}`}>
@@ -58,7 +61,34 @@ const ProductDetails = () => {
           <>
             <div className={styles.details}>
               <div className={styles.img}>
-                <img src={product.images} alt={product.title} />
+                {/* <img src={product.images[0]} alt={product.title} /> */}
+                <div className={styles.carousel}>
+                  <div
+                    className={styles.carouselInner}
+                    style={{
+                      backgroundImage: `url(${product.images[currImg]})`,
+                    }}
+                  >
+                    <div
+                      className={styles.left}
+                      onClick={() => {
+                        currImg > 0 && setCurrImg(currImg - 1);
+                      }}
+                    >
+                      <ArrowBackIosIcon style={{ fontSize: 30 }} />
+                    </div>
+
+                    <div
+                      className={styles.right}
+                      onClick={() => {
+                        currImg < product.images.length - 1 &&
+                          setCurrImg(currImg + 1);
+                      }}
+                    >
+                      <ArrowForwardIosIcon style={{ fontSize: 30 }} />
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className={styles.content}>
                 <h3>{product.titel}</h3>

@@ -18,6 +18,42 @@
         width: 100%;
       }
     }
+    .carousel {
+      background-color: black;
+      height: 100%;
+    }
+
+    .carouselInner {
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+    }
+
+    .carouselInner .left {
+      flex: 5%;
+      height: 100%;
+      place-items: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    .carouselInner .center {
+      flex: 80%;
+      height: 100%;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: justify;
+      text-align-last: center;
+    }
+
+    .carouselInner .right {
+      height: 100%;
+      place-items: center;
+      color: white;
+      cursor: pointer;
+    }
 
     .content {
       width: 55%;
