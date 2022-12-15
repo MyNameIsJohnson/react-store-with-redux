@@ -23,7 +23,6 @@ const ReviewProducts = () => {
   useEffect(() => {
     setProduct(document);
   }, [document]);
-  console.log(userName);
   const submitReview = (e) => {
     e.preventDefault();
 

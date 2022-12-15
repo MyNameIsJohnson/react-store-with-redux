@@ -23,7 +23,7 @@ const logo = (
   <div className={styles.logo}>
     <Link to="/">
       <h2>
-        e<span>Shop</span>.
+        Checks<span>Out</span>.
       </h2>
     </Link>
   </div>

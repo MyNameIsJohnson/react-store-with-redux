@@ -58,7 +58,7 @@ const ProductDetails = () => {
           <>
             <div className={styles.details}>
               <div className={styles.img}>
-                <img src={product.images} alt={product.title} />
+                <img src={product.thumbnail} alt={product.title} />
               </div>
               <div className={styles.content}>
                 <h3>{product.titel}</h3>
