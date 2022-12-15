@@ -16,7 +16,9 @@ import {
 import { toast } from "react-toastify";
 import CheckoutForm from "../../components/checkoutForm/CheckoutForm";
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PK);
+const stripePromise = loadStripe(
+  "pk_test_51ITdI9L6iY5ve5KAkmZG8shjiNph2psmanHb8iVhOksddVpzlkatd252wsOWIYZsJHl41IlCG2EwEootNjJtLFH7002XxgxV8U"
+);
 
 const Checkout = () => {
   const [message, setMessage] = useState("Initializing checkout...");
@@ -35,12 +37,12 @@ const Checkout = () => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, [dispatch, cartItems]);
 
-  const description = `eShop payment: email: ${customerEmail}, Amount: ${totalAmount}`;
+  const description = `ChecksOut payment: email: ${customerEmail}, Amount: ${totalAmount}`;
 
   useEffect(() => {
     // http://localhost:4242/create-payment-intent
     // Create PaymentIntent as soon as the page loads
-    fetch("https://eshop-react-firebase.herokuapp.com/create-payment-intent", {
+    fetch("http://localhost:4242/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
