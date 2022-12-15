@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
 
-import { cartActions } from "../slice/cart-slice";
-export const fetchCartData = () => {
+import { cartActions } from "../slice/cartSlice";
+export const fetchCartData = (user) => {
   return async (dispatch) => {
     const fetchData = async () => {
       const response = await fetch(
-        "https://react-redux-store-project-default-rtdb.firebaseio.com/cart.json"
+        `https://react-redux-store-project-default-rtdb.firebaseio.com/cart/users/${user}.json`
       );
       if (!response.ok) {
         throw new Error("Could not fetch cart data.");
@@ -17,29 +17,32 @@ export const fetchCartData = () => {
     try {
       const cartData = await fetchData();
       dispatch(
-        cartActions.replaceCart({
-          items: cartData.items || [],
-          totalQuantity: cartData.totalQuantity,
+        // look for userId in firebase, if match loggedin user sent that user obj
+
+        cartActions.REPLACE_CART({
+          cartItems: cartData.cartItems || [],
+          cartTotalQuantity: cartData.cartTotalQuantity,
         })
       );
-      toast.success(`${cartActions.payload.name} added to cart`, {
-        position: "top-left",
-      });
+      // toast.success(`You have items in your cart`, {
+      //   position: "top-left",
+      // });
     } catch (error) {
       console.log(error);
     }
   };
 };
-export const sendCartData = (cart) => {
+export const sendCartData = (cart, user) => {
   return async (dispatch) => {
     const sendRequest = async () => {
       const response = await fetch(
-        "https://react-redux-store-project-default-rtdb.firebaseio.com/cart.json",
+        `https://react-redux-store-project-default-rtdb.firebaseio.com/cart/users/${user}.json`,
         {
           method: "PUT",
+
           body: JSON.stringify({
-            items: cart.items,
-            totalQuantity: cart.totalQuantity,
+            cartItems: cart.cartItems,
+            cartTotalQuantity: cart.cartTotalQuantity,
           }),
         }
       );
@@ -50,11 +53,11 @@ export const sendCartData = (cart) => {
 
     try {
       await sendRequest();
-      toast.info(`${cartActions.payload.name} sent`, {
-        position: "top-left",
-      });
+      // toast.info(`Cart has items`, {
+      //   position: "top-left",
+      // });
     } catch (error) {
-      toast.info(`${cartActions.payload.name} error`, {
+      toast.info(error.message, {
         position: "top-left",
       });
     }

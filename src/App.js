@@ -1,6 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCartData, sendCartData } from "./redux/actions/cart-actions";
+
 // Pages
 import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 // Components
@@ -16,7 +20,31 @@ import OrderDetails from "./pages/orderDetails/OrderDetails";
 import ReviewProducts from "./components/reviewProducts/ReviewProducts";
 import NotFound from "./pages/notFound/NotFound";
 
+let isInitial = true;
+
 function App() {
+  const dispatch = useDispatch();
+
+  const cart = useSelector((state) => state.cart);
+  const user = useSelector((state) => state.auth.userID);
+
+  useEffect(() => {
+    if (user) {
+      dispatch(fetchCartData(user));
+    }
+  }, [dispatch, user]);
+
+  useEffect(() => {
+    if (isInitial) {
+      isInitial = false;
+      console.log(isInitial);
+
+      return;
+    }
+    if (cart.changed) {
+      dispatch(sendCartData(cart, user));
+    }
+  }, [cart, user, dispatch]);
   return (
     <>
       <BrowserRouter>
