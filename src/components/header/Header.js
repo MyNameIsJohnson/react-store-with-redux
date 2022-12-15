@@ -98,6 +98,7 @@ const Header = () => {
       .catch((error) => {
         toast.error(error.message);
       });
+    window.reload();
   };
 
   const cart = (
