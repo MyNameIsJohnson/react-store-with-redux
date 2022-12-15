@@ -17,11 +17,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import Card from "../../components/card/Card";
 import { selectIsLoggedIn } from "../../redux/slice/authSlice";
-import { selectUserName } from "../../redux/slice/authSlice";
 
 const Cart = () => {
-  const userName = useSelector(selectUserName);
-  console.log(userName);
   const cartItems = useSelector(selectCartItems);
   const cartTotalAmount = useSelector(selectCartTotalAmount);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
