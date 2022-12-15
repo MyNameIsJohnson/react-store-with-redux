@@ -32,7 +32,7 @@ export const fetchCartData = (user) => {
     }
   };
 };
-export const sendCartData = (cart, user) => {
+export const sendCartData = (cart, user, email) => {
   return async (dispatch) => {
     const sendRequest = async () => {
       const response = await fetch(
@@ -41,6 +41,7 @@ export const sendCartData = (cart, user) => {
           method: "PUT",
 
           body: JSON.stringify({
+            userEmail: email,
             cartItems: cart.cartItems,
             cartTotalQuantity: cart.cartTotalQuantity,
           }),

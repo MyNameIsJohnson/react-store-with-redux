@@ -24,9 +24,15 @@ function App() {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
+  const userId = useSelector((state) => state.auth.userID);
+  const email = useSelector((state) => state.auth.email);
+
   useEffect(() => {
-    dispatch(fetchCartData());
-  }, [dispatch]);
+    if (userId) {
+      dispatch(fetchCartData(userId));
+    }
+  }, [dispatch, userId]);
+
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
@@ -35,9 +41,9 @@ function App() {
       return;
     }
     if (cart.changed) {
-      dispatch(sendCartData(cart));
+      dispatch(sendCartData(cart, userId, email));
     }
-  }, [cart, dispatch]);
+  }, [cart, userId, email, dispatch]);
   return (
     <>
       <BrowserRouter>
