@@ -1,71 +1,53 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 // Pages
-import { Home, Contact, Login, Register, Reset } from "./pages";
+import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 // Components
 import { Header, Footer } from "./components";
-
-import Cart from "./components/cart/Cart";
-import Layout from "./components/layout/Layout";
-import Notification from "./components/ui/Notification";
-
-import { fetchProductData } from "./redux/actions/product-actions";
-import { fetchCartData, sendCartData } from "./redux/actions/cart-actions";
-
-let isInitial = true;
+import AdminOnlyRoute from "./components/adminOnlyRoute/AdminOnlyRoute";
+import ProductDetails from "./components/product/productDetails/ProductDetails";
+import Cart from "./pages/cart/Cart";
+import CheckoutDetails from "./pages/checkout/CheckoutDetails";
+import Checkout from "./pages/checkout/Checkout";
+import CheckoutSuccess from "./pages/checkout/CheckoutSuccess";
+import OrderHistory from "./pages/orderHistory/OrderHistory";
+import OrderDetails from "./pages/orderDetails/OrderDetails";
+import ReviewProducts from "./components/reviewProducts/ReviewProducts";
+import NotFound from "./pages/notFound/NotFound";
 
 function App() {
-  const dispatch = useDispatch();
-
-  const cart = useSelector((state) => state.cart);
-  const notification = useSelector((state) => state.ui.notification);
-
-  useEffect(() => {
-    dispatch(fetchProductData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchCartData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isInitial) {
-      isInitial = false;
-      console.log(isInitial);
-
-      return;
-    }
-    if (cart.changed) {
-      dispatch(sendCartData(cart));
-    }
-  }, [cart, dispatch]);
-
   return (
     <>
       <BrowserRouter>
         <ToastContainer />
-        <Layout>
-          {notification && (
-            <Notification
-              status={notification.status}
-              title={notification.title}
-              message={notification.message}
-            />
-          )}
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/reset" element={<Reset />} />
 
-          <Header />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/reset" element={<Reset />} />
-            <Route path="/cart" element={<Cart />} />
-          </Routes>
-        </Layout>
+          <Route
+            path="/admin/*"
+            element={
+              <AdminOnlyRoute>
+                <Admin />
+              </AdminOnlyRoute>
+            }
+          />
+
+          <Route path="/product-details/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout-details" element={<CheckoutDetails />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/checkout-success" element={<CheckoutSuccess />} />
+          <Route path="/order-history" element={<OrderHistory />} />
+          <Route path="/order-details/:id" element={<OrderDetails />} />
+          <Route path="/review-product/:id" element={<ReviewProducts />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
         <Footer />
       </BrowserRouter>
     </>
