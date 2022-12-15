@@ -16,6 +16,7 @@ import ShowOnLogin, { ShowOnLogout } from "../hiddenLink/hiddenLink";
 import { AdminOnlyLink } from "../adminOnlyRoute/AdminOnlyRoute";
 import {
   CALCULATE_TOTAL_QUANTITY,
+  CLEAR_CART,
   selectCartTotalQuantity,
 } from "../../redux/slice/cartSlice";
 
@@ -98,6 +99,7 @@ const Header = () => {
       .catch((error) => {
         toast.error(error.message);
       });
+    window.reload();
   };
 
   const cart = (

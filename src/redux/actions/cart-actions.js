@@ -32,7 +32,11 @@ export const fetchCartData = (user) => {
     }
   };
 };
+<<<<<<< HEAD
 export const sendCartData = (cart, user, email) => {
+=======
+export const sendCartData = (cart, user) => {
+>>>>>>> 7fd3706 (Added effects to app)
   return async (dispatch) => {
     const sendRequest = async () => {
       const response = await fetch(
@@ -41,7 +45,10 @@ export const sendCartData = (cart, user, email) => {
           method: "PUT",
 
           body: JSON.stringify({
+<<<<<<< HEAD
             userEmail: email,
+=======
+>>>>>>> 7fd3706 (Added effects to app)
             cartItems: cart.cartItems,
             cartTotalQuantity: cart.cartTotalQuantity,
           }),
