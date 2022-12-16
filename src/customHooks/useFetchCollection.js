@@ -11,7 +11,7 @@ const useFetchCollection = (collectionName) => {
     setIsLoading(true);
     try {
       const docRef = collection(db, collectionName);
-      const q = query(docRef, orderBy("id"));
+      const q = query(docRef);
       onSnapshot(q, (snapshot) => {
         // console.log(snapshot.docs);
         const allData = snapshot.docs.map((doc) => ({
