@@ -4,10 +4,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartData, sendCartData } from "./redux/actions/cart-actions";
-<<<<<<< HEAD
-=======
-
->>>>>>> 7fd3706 (Added effects to app)
 // Pages
 import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 // Components
@@ -24,19 +20,10 @@ import ReviewProducts from "./components/reviewProducts/ReviewProducts";
 import NotFound from "./pages/notFound/NotFound";
 
 let isInitial = true;
-<<<<<<< HEAD
-=======
-
->>>>>>> 7fd3706 (Added effects to app)
 function App() {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-<<<<<<< HEAD
-  useEffect(() => {
-    dispatch(fetchCartData());
-  }, [dispatch]);
-=======
   const user = useSelector((state) => state.auth.userID);
 
   useEffect(() => {
@@ -45,7 +32,6 @@ function App() {
     }
   }, [dispatch, user]);
 
->>>>>>> 7fd3706 (Added effects to app)
   useEffect(() => {
     if (isInitial) {
       isInitial = false;
@@ -54,15 +40,9 @@ function App() {
       return;
     }
     if (cart.changed) {
-<<<<<<< HEAD
-      dispatch(sendCartData(cart));
-    }
-  }, [cart, dispatch]);
-=======
       dispatch(sendCartData(cart, user));
     }
   }, [cart, user, dispatch]);
->>>>>>> 7fd3706 (Added effects to app)
   return (
     <>
       <BrowserRouter>
