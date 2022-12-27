@@ -278,41 +278,6 @@ const AddProduct = () => {
               value={product.stock}
               onChange={(e) => handleInputChange(e)}
             />
-            <label>Product thumbnail:</label>
-
-            <Card cardClass={styles.group}>
-              {uploadProgress === 0 ? null : (
-                <div className={styles.progress}>
-                  <div
-                    className={styles["progress-bar"]}
-                    style={{ width: `${uploadProgress}%` }}
-                  >
-                    {uploadProgress < 100
-                      ? `Uploading ${uploadProgress}`
-                      : `Upload Complete ${uploadProgress}%`}
-                  </div>
-                </div>
-              )}
-
-              <input
-                type="file"
-                accept="thumbnail/*"
-                placeholder="Product thumbnail"
-                name="thumbnail"
-                onChange={(e) => handleImageChange(e)}
-              />
-
-              {product.thumbnail === "" ? null : (
-                <input
-                  type="text"
-                  // required
-                  placeholder="Thumbnail URL"
-                  name="thumbnail"
-                  value={product.thumbnail}
-                  disabled
-                />
-              )}
-            </Card>
 
             <button className="--btn --btn-primary">
               {detectForm(id, "Save Product", "Edit Product")}
