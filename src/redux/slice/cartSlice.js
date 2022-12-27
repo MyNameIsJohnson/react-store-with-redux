@@ -42,7 +42,7 @@ const cartSlice = createSlice({
         existingItem.cartQuantity++;
         existingItem.cartTotalAmount =
           existingItem.cartTotalAmount + newItem.price;
-        toast.info(`${action.payload.title} Removed from cart`, {
+        toast.info(`${action.payload.title} increased in cart`, {
           position: "top-left",
         });
       }

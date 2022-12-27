@@ -24,13 +24,14 @@ function App() {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.auth.userID);
+  const userId = useSelector((state) => state.auth.userID);
+  const email = useSelector((state) => state.auth.email);
 
   useEffect(() => {
-    if (user) {
-      dispatch(fetchCartData(user));
+    if (userId) {
+      dispatch(fetchCartData(userId));
     }
-  }, [dispatch, user]);
+  }, [dispatch, userId]);
 
   useEffect(() => {
     if (isInitial) {
@@ -40,9 +41,9 @@ function App() {
       return;
     }
     if (cart.changed) {
-      dispatch(sendCartData(cart, user));
+      dispatch(sendCartData(cart, userId, email));
     }
-  }, [cart, user, dispatch]);
+  }, [cart, userId, email, dispatch]);
   return (
     <>
       <BrowserRouter>
