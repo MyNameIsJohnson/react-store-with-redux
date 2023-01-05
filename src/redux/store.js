@@ -5,12 +5,14 @@ import filterReducer from "./slice/filterSlice";
 import cartReducer from "./slice/cartSlice";
 import checkoutReducer from "./slice/checkoutSlice";
 import orderReducer from "./slice/orderSlice";
+import wishlistReducer from "./slice/wishlistSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   product: productReducer,
   filter: filterReducer,
   cart: cartReducer,
+  wishlist: wishlistReducer,
   checkout: checkoutReducer,
   orders: orderReducer,
 });

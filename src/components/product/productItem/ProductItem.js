@@ -5,6 +5,7 @@ import {
   ADD_TO_CART,
   CALCULATE_TOTAL_QUANTITY,
 } from "../../../redux/slice/cartSlice";
+import { ADD_TO_WISHLIST } from "../../../redux/slice/wishlistSlice";
 import Card from "../../card/Card";
 import styles from "./ProductItem.module.scss";
 
@@ -31,6 +32,10 @@ const ProductItem = ({
     dispatch(CALCULATE_TOTAL_QUANTITY());
   };
 
+  const addToWishlist = (product) => {
+    dispatch(ADD_TO_WISHLIST(product));
+  };
+
   return (
     <Card cardClass={grid ? `${styles.grid}` : `${styles.list}`}>
       <Link to={`/product-details/${id}`}>
@@ -52,6 +57,12 @@ const ProductItem = ({
           onClick={() => addToCart(product)}
         >
           Add To Cart
+        </button>
+        <button
+          className="--btn --btn-danger"
+          onClick={() => addToWishlist(product)}
+        >
+          Add To Wishlist
         </button>
       </div>
     </Card>
