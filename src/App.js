@@ -4,6 +4,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCartData, sendCartData } from "./redux/actions/cart-actions";
+import {
+  fetchWishlistData,
+  sendWishlistData,
+} from "./redux/actions/wishlist-actions";
 // Pages
 import { Home, Contact, Login, Register, Reset, Admin } from "./pages";
 // Components
@@ -18,18 +22,21 @@ import OrderHistory from "./pages/orderHistory/OrderHistory";
 import OrderDetails from "./pages/orderDetails/OrderDetails";
 import ReviewProducts from "./components/reviewProducts/ReviewProducts";
 import NotFound from "./pages/notFound/NotFound";
+import Wishlist from "./pages/wishlist/Wishlist";
 
 let isInitial = true;
 function App() {
   const dispatch = useDispatch();
 
   const cart = useSelector((state) => state.cart);
+  const wishlist = useSelector((state) => state.wishlist);
   const userId = useSelector((state) => state.auth.userID);
   const email = useSelector((state) => state.auth.email);
 
   useEffect(() => {
     if (userId) {
       dispatch(fetchCartData(userId));
+      dispatch(fetchWishlistData(userId));
     }
   }, [dispatch, userId]);
 
@@ -43,7 +50,10 @@ function App() {
     if (cart.changed) {
       dispatch(sendCartData(cart, userId, email));
     }
-  }, [cart, userId, email, dispatch]);
+    if (wishlist.changed) {
+      dispatch(sendWishlistData(wishlist, userId, email));
+    }
+  }, [cart, wishlist, userId, email, dispatch]);
   return (
     <>
       <BrowserRouter>
@@ -67,6 +77,7 @@ function App() {
 
           <Route path="/product-details/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/checkout-details" element={<CheckoutDetails />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout-success" element={<CheckoutSuccess />} />

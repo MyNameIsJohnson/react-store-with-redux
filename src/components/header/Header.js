@@ -18,7 +18,7 @@ import {
   CALCULATE_TOTAL_QUANTITY,
   selectCartTotalQuantity,
 } from "../../redux/slice/cartSlice";
-
+import { selectWishlistTotalQuantity } from "../../redux/slice/wishlistSlice";
 const logo = (
   <div className={styles.logo}>
     <Link to="/">
@@ -36,6 +36,7 @@ const Header = () => {
   const [displayName, setdisplayName] = useState("");
   const [scrollPage, setScrollPage] = useState(false);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const wishlistTotalQuantity = useSelector(selectWishlistTotalQuantity);
 
   useEffect(() => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
@@ -111,6 +112,15 @@ const Header = () => {
     </span>
   );
 
+  const wishlist = (
+    <span className={styles.cart}>
+      <Link to="/wishlist">
+        Wishlist
+        <FaShoppingCart size={20} />
+        <p>{wishlistTotalQuantity}</p>
+      </Link>
+    </span>
+  );
   return (
     <>
       <header className={scrollPage ? `${styles.fixed}` : null}>
@@ -179,6 +189,7 @@ const Header = () => {
                 </ShowOnLogin>
               </span>
               {cart}
+              {wishlist}
             </div>
           </nav>
 

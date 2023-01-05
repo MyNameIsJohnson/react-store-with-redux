@@ -12,6 +12,7 @@ import {
   selectCartTotalAmount,
   selectCartTotalQuantity,
 } from "../../redux/slice/cartSlice";
+import { ADD_TO_WISHLIST } from "../../redux/slice/wishlistSlice";
 import styles from "./Cart.module.scss";
 import { FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,6 +30,9 @@ const Cart = () => {
 
   const increaseCart = (cart) => {
     dispatch(ADD_TO_CART(cart));
+  };
+  const addToWishlist = (wishlist) => {
+    dispatch(ADD_TO_WISHLIST(wishlist));
   };
 
   const decreaseCart = (cart) => {
@@ -120,6 +124,12 @@ const Cart = () => {
                             +
                           </button>
                         </div>
+                        <button
+                          className="--btn --btn-danger"
+                          onClick={() => addToWishlist(cart)}
+                        >
+                          Add to wishlist
+                        </button>
                       </td>
                       <td>{(price * cartQuantity).toFixed(2)}</td>
                       <td className={styles.icons}>
