@@ -17,7 +17,7 @@ export const fetchWishlistData = (user) => {
       const wishlistData = await fetchData();
       dispatch(
         wishlistActions.REPLACE_WISHLIST({
-          wishlist: wishlistData.wishlistItems || [],
+          wishlistItems: wishlistData.wishlistItems || [],
           wishlistTotalQuantity: wishlistData.wishlistTotalQuantity,
         })
       );
